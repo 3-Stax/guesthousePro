@@ -1203,42 +1203,42 @@ h3 {
 }
 
 /* ============================================
-   TESTIMONIALS
+   TESTIMONIALS - REDUCED BY 30%
    ============================================ */
 .testimonials {
-    padding: 5rem 5%;
+    padding: 3.5rem 5%; /* was 5rem */
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
 }
 
 .testimonial-card {
-    padding: 2rem;
+    padding: 1.4rem; /* was 2rem */
 }
 
 .testimonial-card blockquote {
-    font-size: 1.2rem;
+    font-size: 0.84rem; /* was 1.2rem */
     font-weight: 300;
     color: var(--text-light);
-    line-height: 1.8;
+    line-height: 1.6; /* was 1.8 */
     font-style: italic;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem; /* was 1.5rem */
 }
 
 .testimonial-card blockquote::before {
     content: '"';
-    font-size: 3rem;
+    font-size: 2.1rem; /* was 3rem */
     color: var(--accent-gold);
     opacity: 0.3;
     font-family: var(--font-display);
     display: block;
-    margin-bottom: -1rem;
+    margin-bottom: -0.7rem; /* was -1rem */
 }
 
 .testimonial-card cite {
     font-style: normal;
     color: var(--text-muted);
-    font-size: 0.9rem;
+    font-size: 0.63rem; /* was 0.9rem */
     font-weight: 300;
     letter-spacing: 0.05em;
 }
@@ -1246,6 +1246,20 @@ h3 {
 .testimonial-card cite::before {
     content: '— ';
     color: var(--accent-gold);
+}
+
+/* Stars rating */
+.testimonial-card > div {
+    margin-top: 0.35rem !important; /* was 0.5rem */
+    color: var(--accent-gold);
+    letter-spacing: 1.4px !important; /* was 2px */
+    font-size: 0.7rem; /* added to reduce stars */
+}
+
+/* Additional compactness for testimonials */
+.testimonials .testimonial-card {
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 /* ============================================
