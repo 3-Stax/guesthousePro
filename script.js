@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
 
-    document.querySelectorAll('.rooms, .location, .testimonials, .room-card, .section-title, .amenities').forEach(function(el) {
+    document.querySelectorAll('.rooms, .location, .testimonials, .room-card, .section-title, .amenities, .booking').forEach(function(el) {
         el.classList.add('fade-up');
         revealObserver.observe(el);
     });
@@ -141,7 +141,154 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // 7. WHATSAPP CLICK TRACKING
+    // 7. BOOKING FORM HANDLING
+    // ============================================
+    const form = document.getElementById('bookingForm');
+    const successMessage = document.getElementById('formSuccess');
+    const submitBtn = form.querySelector('.submit-btn');
+
+    // Set minimum date for check-in to today
+    const today = new Date().toISOString().split('T')[0];
+    const checkInInput = document.getElementById('checkIn');
+    const checkOutInput = document.getElementById('checkOut');
+    checkInInput.setAttribute('min', today);
+
+    // Update check-out min date when check-in changes
+    checkInInput.addEventListener('change', function() {
+        const checkInDate = this.value;
+        if (checkInDate) {
+            const nextDay = new Date(checkInDate);
+            nextDay.setDate(nextDay.getDate() + 1);
+            const minCheckOut = nextDay.toISOString().split('T')[0];
+            checkOutInput.setAttribute('min', minCheckOut);
+            if (checkOutInput.value && checkOutInput.value <= checkInDate) {
+                checkOutInput.value = minCheckOut;
+            }
+        }
+    });
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Reset previous errors
+        form.querySelectorAll('.form-group').forEach(function(group) {
+            group.classList.remove('error');
+        });
+
+        // Validate form
+        let isValid = true;
+        const fullName = document.getElementById('fullName');
+        const email = document.getElementById('email');
+        const phone = document.getElementById('phone');
+        const checkIn = document.getElementById('checkIn');
+        const checkOut = document.getElementById('checkOut');
+
+        // Validate name
+        if (!fullName.value.trim() || fullName.value.trim().length < 2) {
+            fullName.closest('.form-group').classList.add('error');
+            isValid = false;
+        }
+
+        // Validate email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email.value.trim() || !emailRegex.test(email.value.trim())) {
+            email.closest('.form-group').classList.add('error');
+            isValid = false;
+        }
+
+        // Validate phone
+        if (!phone.value.trim() || phone.value.trim().length < 8) {
+            phone.closest('.form-group').classList.add('error');
+            isValid = false;
+        }
+
+        // Validate dates
+        if (!checkIn.value) {
+            checkIn.closest('.form-group').classList.add('error');
+            isValid = false;
+        }
+        if (!checkOut.value) {
+            checkOut.closest('.form-group').classList.add('error');
+            isValid = false;
+        }
+        if (checkIn.value && checkOut.value && checkOut.value <= checkIn.value) {
+            checkOut.closest('.form-group').classList.add('error');
+            isValid = false;
+        }
+
+        if (!isValid) {
+            // Scroll to first error
+            const firstError = form.querySelector('.form-group.error');
+            if (firstError) {
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                const input = firstError.querySelector('input, select');
+                if (input) input.focus();
+            }
+            return;
+        }
+
+        // Disable button and show loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Sending...</span><i class="fas fa-spinner fa-spin" style="margin-left: 0.75rem;"></i>';
+
+        // Simulate form submission (replace with actual API call)
+        setTimeout(function() {
+            // Hide form, show success
+            form.style.display = 'none';
+            successMessage.classList.add('show');
+
+            // Log form data (for demo)
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            console.log('📋 Booking Inquiry Submitted:', data);
+
+            // Track with Google Analytics if available
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'booking_inquiry', {
+                    'event_category': 'Booking',
+                    'event_label': data.roomType || 'General',
+                    'value': 1
+                });
+            }
+
+            // Reset button state (though form is hidden)
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>Send Inquiry</span><i class="fas fa-paper-plane" style="margin-left: 0.75rem;"></i>';
+
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        }, 1800);
+    });
+
+    // Real-time validation on input
+    form.querySelectorAll('input, select, textarea').forEach(function(field) {
+        field.addEventListener('blur', function() {
+            const group = this.closest('.form-group');
+            if (this.hasAttribute('required') && !this.value.trim()) {
+                group.classList.add('error');
+            } else if (this.type === 'email' && this.value.trim()) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(this.value.trim())) {
+                    group.classList.add('error');
+                } else {
+                    group.classList.remove('error');
+                }
+            } else {
+                group.classList.remove('error');
+            }
+        });
+
+        field.addEventListener('input', function() {
+            const group = this.closest('.form-group');
+            if (this.hasAttribute('required') && this.value.trim()) {
+                group.classList.remove('error');
+            }
+        });
+    });
+
+    // ============================================
+    // 8. WHATSAPP CLICK TRACKING
     // ============================================
     document.querySelectorAll('a[href^="https://wa.me"]').forEach(function(link) {
         link.addEventListener('click', function() {
@@ -162,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================================
-    // 8. PHONE CLICK TRACKING
+    // 9. PHONE CLICK TRACKING
     // ============================================
     document.querySelectorAll('a[href^="tel:"]').forEach(function(link) {
         link.addEventListener('click', function() {
@@ -178,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================================
-    // 9. KEYBOARD ACCESSIBILITY
+    // 10. KEYBOARD ACCESSIBILITY
     // ============================================
     document.querySelectorAll('.room-card').forEach(function(card) {
         card.addEventListener('keydown', function(e) {
@@ -191,7 +338,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================================
-    // 10. DYNAMIC COPYRIGHT YEAR
+    // 11. DYNAMIC COPYRIGHT YEAR
     // ============================================
     const footer = document.querySelector('footer p');
     if (footer) {
@@ -200,7 +347,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // 11. PARALLAX HERO (Lightweight)
+    // 12. PARALLAX HERO (Lightweight)
     // ============================================
     if (hero) {
         const heroContent = hero.querySelector('.hero-content');
@@ -225,8 +372,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // 12. CONSOLE WELCOME
+    // 13. CONSOLE WELCOME
     // ============================================
     console.log('🏨 Comfort Guesthouse — Premium Experience Loaded');
-    console.log('✨ Designed for the discerning traveler');
+    console.log('✨ Booking form, animations, and luxury details active');
 });

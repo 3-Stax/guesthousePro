@@ -543,6 +543,175 @@ h3 {
 }
 
 /* ============================================
+   BOOKING FORM
+   ============================================ */
+.booking {
+    padding: 6rem 5%;
+    background: var(--bg-card);
+    border-top: 1px solid rgba(212, 175, 55, 0.08);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+}
+
+.booking-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.booking-form {
+    background: rgba(18, 24, 32, 0.6);
+    padding: 3rem;
+    border-radius: 4px;
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-light);
+    letter-spacing: 0.05em;
+}
+
+.form-group label .required {
+    color: var(--accent-gold);
+    margin-left: 0.2rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    padding: 0.8rem 1rem;
+    color: var(--text-light);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    transition: var(--transition-smooth);
+    outline: none;
+    width: 100%;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+.form-group select option {
+    background: var(--bg-dark);
+    color: var(--text-light);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-group .error-message {
+    color: #e74c3c;
+    font-size: 0.75rem;
+    opacity: 0;
+    transition: var(--transition-smooth);
+    height: 0;
+    overflow: hidden;
+}
+
+.form-group.error .error-message {
+    opacity: 1;
+    height: auto;
+    margin-top: 0.2rem;
+}
+
+.form-group.error input,
+.form-group.error select {
+    border-color: #e74c3c;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem !important;
+    font-size: 0.85rem !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.submit-btn i {
+    transition: transform 0.3s ease;
+}
+
+.submit-btn:hover i {
+    transform: translateX(4px);
+}
+
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.form-success {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 4px;
+    margin-top: 2rem;
+}
+
+.form-success.show {
+    display: block;
+    animation: fadeUp 0.5s ease forwards;
+}
+
+.form-success h3 {
+    color: var(--accent-gold);
+    margin-bottom: 0.5rem;
+}
+
+.form-success p {
+    color: var(--text-muted);
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
    LOCATION
    ============================================ */
 .location {
@@ -553,8 +722,18 @@ h3 {
 }
 
 .location-container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
+}
+
+.location-wrapper {
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+}
+
+.location-text {
+    flex: 1;
 }
 
 .location-text .sub-heading {
@@ -613,6 +792,40 @@ h3 {
 
 .contact-list li a:hover {
     color: var(--accent-gold);
+}
+
+/* Google Maps */
+.location-map {
+    flex: 1;
+    min-width: 300px;
+}
+
+.map-container {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: grayscale(20%) brightness(0.9);
+    transition: var(--transition-smooth);
+}
+
+.map-container iframe:hover {
+    filter: grayscale(0%) brightness(1);
+}
+
+.map-container {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
 /* ============================================
@@ -904,176 +1117,6 @@ footer .footer-divider {
     transform: scale(1.05);
 }
 
-/* ============================================
-   LOCATION - SIDE BY SIDE LAYOUT
-   ============================================ */
-.location {
-    padding: 6rem 5%;
-    background: var(--bg-card);
-    border-top: 1px solid rgba(212, 175, 55, 0.08);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.08);
-}
-
-.location-container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.location-wrapper {
-    display: flex;
-    gap: 4rem;
-    align-items: center;
-}
-
-.location-text {
-    flex: 1;
-}
-
-.location-text .sub-heading {
-    padding-left: 0;
-}
-
-.location-text .sub-heading::before {
-    display: none;
-}
-
-.location-text h2 {
-    font-family: var(--font-display);
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
-    margin-bottom: 1rem;
-    letter-spacing: 0.05em;
-}
-
-.location-text p {
-    color: var(--text-muted);
-    font-weight: 300;
-    font-size: 1.05rem;
-    max-width: 600px;
-}
-
-.contact-list {
-    list-style: none;
-    margin-top: 2rem;
-}
-
-.contact-list li {
-    margin-bottom: 1rem;
-    color: var(--text-light);
-    font-weight: 300;
-    padding-left: 2rem;
-    position: relative;
-}
-
-.contact-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 6px;
-    height: 6px;
-    background: var(--accent-gold);
-    border-radius: 50%;
-    opacity: 0.6;
-}
-
-.contact-list li a {
-    color: var(--text-light);
-    text-decoration: none;
-    transition: var(--transition-smooth);
-}
-
-.contact-list li a:hover {
-    color: var(--accent-gold);
-}
-
-/* Google Maps */
-.location-map {
-    flex: 1;
-    min-width: 300px;
-}
-
-.map-container {
-    position: relative;
-    width: 100%;
-    height: 350px;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-}
-
-.map-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    filter: grayscale(20%) brightness(0.9);
-    transition: var(--transition-smooth);
-}
-
-.map-container iframe:hover {
-    filter: grayscale(0%) brightness(1);
-}
-
-.map-container {
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-}
-
-
-@media (max-width: 768px) {
-    .location-wrapper {
-        flex-direction: column; /* Stack vertically */
-        gap: 2rem;
-    }
-    
-    .map-container {
-        height: 250px; /* Smaller on mobile */
-    }
-}
-
-@media (max-width: 480px) {
-    .map-container {
-        height: 200px; /* Even smaller on phones */
-    }
-}
-
-/* ============================================
-   RESPONSIVE - LOCATION
-   ============================================ */
-@media (max-width: 768px) {
-    .location-wrapper {
-        flex-direction: column;
-        gap: 2rem;
-    }
-    
-    .location-text {
-        flex: none;
-        width: 100%;
-    }
-    
-    .location-text p {
-        max-width: 100%;
-    }
-    
-    .location-map {
-        flex: none;
-        width: 100%;
-        min-width: unset;
-    }
-    
-    .map-container {
-        height: 250px;
-    }
-}
-
-@media (max-width: 480px) {
-    .map-container {
-        height: 200px;
-    }
-}
-
 /* Tooltip text */
 .whatsapp-float .tooltip {
     position: absolute;
@@ -1109,51 +1152,6 @@ footer .footer-divider {
     transform: translateX(0);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .whatsapp-float {
-        bottom: 20px;
-        right: 20px;
-    }
-    
-    .whatsapp-float .whatsapp-btn {
-        width: 50px;
-        height: 50px;
-        font-size: 1.6rem;
-    }
-    
-    .whatsapp-float .whatsapp-btn i {
-        font-size: 1.6rem;
-    }
-    
-    .whatsapp-float .tooltip {
-        display: none;
-    }
-    
-    .whatsapp-float::before,
-    .whatsapp-float::after {
-        display: none;
-    }
-}
-
-@media (max-width: 480px) {
-    .whatsapp-float {
-        bottom: 16px;
-        right: 16px;
-    }
-    
-    .whatsapp-float .whatsapp-btn {
-        width: 44px;
-        height: 44px;
-        font-size: 1.3rem;
-    }
-    
-    .whatsapp-float .whatsapp-btn i {
-        font-size: 1.3rem;
-    }
-}
-
-
 @keyframes loaderPulse {
     0%, 100% { transform: scaleX(1); opacity: 0.3; }
     50% { transform: scaleX(1.5); opacity: 1; }
@@ -1175,6 +1173,15 @@ footer .footer-divider {
 }
 
 @media (max-width: 768px) {
+    .location-wrapper {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .map-container {
+        height: 250px;
+    }
+
     .navbar {
         padding: 1rem 5%;
     }
@@ -1286,6 +1293,43 @@ footer .footer-divider {
     .contact-list li {
         font-size: 0.9rem;
     }
+
+    .booking {
+        padding: 4rem 5%;
+    }
+    
+    .booking-form {
+        padding: 1.5rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .whatsapp-float .whatsapp-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.6rem;
+    }
+    
+    .whatsapp-float .whatsapp-btn i {
+        font-size: 1.6rem;
+    }
+    
+    .whatsapp-float .tooltip {
+        display: none;
+    }
+    
+    .whatsapp-float::before,
+    .whatsapp-float::after {
+        display: none;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1325,6 +1369,29 @@ footer .footer-divider {
     .btn-card {
         font-size: 0.7rem;
         padding: 0.7rem;
+    }
+    
+    .map-container {
+        height: 200px;
+    }
+
+    .booking-form {
+        padding: 1rem;
+    }
+
+    .whatsapp-float {
+        bottom: 16px;
+        right: 16px;
+    }
+    
+    .whatsapp-float .whatsapp-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 1.3rem;
+    }
+    
+    .whatsapp-float .whatsapp-btn i {
+        font-size: 1.3rem;
     }
 }
 
