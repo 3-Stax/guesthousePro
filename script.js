@@ -1,24 +1,309 @@
+
 /**
  * ============================================
- * COMFORT GUESTHOUSE — Premium JavaScript
+ * ROSEVILLE GUESTHOUSE — Premium JavaScript
  * ============================================
  */
 
 document.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
-    // ============================================
-    // 1. PAGE LOADER
-    // ============================================
-    const loader = document.getElementById('pageLoader');
-    if (loader) {
+   // ============================================
+// 1. PAGE LOADER WITH PROGRESS
+// ============================================
+const loader = document.getElementById('pageLoader');
+const progressBar = document.getElementById('loaderProgress');
+const percentageText = document.getElementById('loaderPercentage');
+
+if (loader && progressBar) {
+    let progress = 0;
+    const interval = setInterval(function() {
+        progress += Math.random() * 15 + 5;
+        if (progress > 95) progress = 95; // Cap at 95% until fully loaded
+        
+        progressBar.style.width = progress + '%';
+        if (percentageText) {
+            percentageText.textContent = Math.round(progress) + '%';
+        }
+    }, 200);
+
+    // Wait for everything to load
+    window.addEventListener('load', function() {
+        clearInterval(interval);
+        progressBar.style.width = '100%';
+        if (percentageText) {
+            percentageText.textContent = '100%';
+        }
+        
         setTimeout(function() {
             loader.classList.add('fade-out');
             setTimeout(function() {
                 loader.style.display = 'none';
             }, 600);
-        }, 800);
+        }, 400);
+    });
+
+    // ============================================
+// NAVBAR WEATHER (Free - No API Key)
+// ============================================
+(function fetchNavbarWeather() {
+    const weatherContainer = document.getElementById('navbarWeather');
+    const tempDisplay = document.getElementById('navbarWeatherTemp');
+    const conditionDisplay = document.getElementById('navbarWeatherCondition');
+    const iconElement = weatherContainer.querySelector('i');
+    
+    if (!tempDisplay || !weatherContainer) return;
+
+    const LAT = -22.5594;
+    const LON = 17.0832;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current_weather=true&temperature_unit=celsius&timezone=Africa/Windhoek`;
+
+    async function fetchWeather() {
+        try {
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data.current_weather) {
+                const temp = Math.round(data.current_weather.temperature);
+                const weatherCode = data.current_weather.weathercode;
+                const condition = getWeatherCondition(weatherCode);
+                
+                tempDisplay.textContent = `${temp}°C`;
+                conditionDisplay.textContent = condition;
+                
+                updateWeatherIcon(weatherCode);
+                weatherContainer.classList.remove('loading');
+            } else {
+                throw new Error('Unexpected API response format');
+            }
+            
+        } catch (error) {
+            console.warn('Navbar weather fetch failed:', error);
+            tempDisplay.textContent = '--°C';
+            conditionDisplay.textContent = 'Offline';
+            iconElement.className = 'fas fa-cloud';
+            weatherContainer.classList.remove('loading');
+        }
     }
+
+    function updateWeatherIcon(code) {
+        const iconMap = {
+            0: 'fa-sun',
+            1: 'fa-cloud-sun',
+            2: 'fa-cloud-sun',
+            3: 'fa-cloud',
+            45: 'fa-smog',
+            48: 'fa-smog',
+            51: 'fa-cloud-rain',
+            53: 'fa-cloud-rain',
+            55: 'fa-cloud-rain',
+            61: 'fa-cloud-rain',
+            63: 'fa-cloud-rain',
+            65: 'fa-cloud-rain',
+            71: 'fa-snowflake',
+            73: 'fa-snowflake',
+            75: 'fa-snowflake',
+            80: 'fa-cloud-rain',
+            81: 'fa-cloud-rain',
+            82: 'fa-cloud-rain',
+            95: 'fa-bolt',
+            96: 'fa-bolt',
+            99: 'fa-bolt'
+        };
+        
+        const iconClass = iconMap[code] || 'fa-cloud';
+        iconElement.className = `fas ${iconClass}`;
+    }
+
+    function getWeatherCondition(code) {
+        const conditions = {
+            0: 'Clear',
+            1: 'Mainly clear',
+            2: 'Partly cloudy',
+            3: 'Overcast',
+            45: 'Foggy',
+            48: 'Foggy',
+            51: 'Drizzle',
+            53: 'Drizzle',
+            55: 'Drizzle',
+            61: 'Light rain',
+            63: 'Moderate rain',
+            65: 'Heavy rain',
+            71: 'Light snow',
+            73: 'Moderate snow',
+            75: 'Heavy snow',
+            80: 'Showers',
+            81: 'Showers',
+            82: 'Showers',
+            95: 'Thunderstorm',
+            96: 'Thunderstorm',
+            99: 'Thunderstorm'
+        };
+        return conditions[code] || 'Unknown';
+    }
+
+    // Start fetching weather
+    weatherContainer.classList.add('loading');
+    fetchWeather();
+    
+    // Refresh weather every 10 minutes
+    setInterval(fetchWeather, 600000);
+})();
+
+    // Fallback: hide loader after 5 seconds even if not fully loaded
+    setTimeout(function() {
+        if (!loader.classList.contains('fade-out')) {
+            loader.classList.add('fade-out');
+            setTimeout(function() {
+                loader.style.display = 'none';
+            }, 600);
+        }
+    }, 6000);
+}
+
+    // ============================================
+// HERO CAROUSEL
+// ============================================
+(function initHeroCarousel() {
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.hero-dot');
+    const prevBtn = document.querySelector('.hero-arrow-prev');
+    const nextBtn = document.querySelector('.hero-arrow-next');
+    let currentIndex = 0;
+    let intervalId = null;
+    const AUTO_PLAY_INTERVAL = 5000; // 5 seconds
+
+    if (!slides.length) return;
+
+    function goToSlide(index) {
+        // Validate index
+        if (index < 0) index = slides.length - 1;
+        if (index >= slides.length) index = 0;
+
+        // Remove active class from all slides and dots
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        // Add active class to current slide and dot
+        slides[index].classList.add('active');
+        dots[index].classList.add('active');
+
+        currentIndex = index;
+    }
+
+    function nextSlide() {
+        goToSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+        goToSlide(currentIndex - 1);
+    }
+
+    function startAutoPlay() {
+        if (intervalId) clearInterval(intervalId);
+        intervalId = setInterval(nextSlide, AUTO_PLAY_INTERVAL);
+    }
+
+    function stopAutoPlay() {
+        if (intervalId) {
+            clearInterval(intervalId);
+            intervalId = null;
+        }
+    }
+
+    function resetAutoPlay() {
+        stopAutoPlay();
+        startAutoPlay();
+    }
+
+    // Event listeners for arrows
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            prevSlide();
+            resetAutoPlay();
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            nextSlide();
+            resetAutoPlay();
+        });
+    }
+
+    // Event listeners for dots
+    dots.forEach(function(dot, index) {
+        dot.addEventListener('click', function(e) {
+            e.stopPropagation();
+            goToSlide(index);
+            resetAutoPlay();
+        });
+
+        // Keyboard accessibility for dots
+        dot.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                goToSlide(index);
+                resetAutoPlay();
+            }
+        });
+    });
+
+    // Keyboard navigation for entire hero
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowLeft') {
+            prevSlide();
+            resetAutoPlay();
+        } else if (e.key === 'ArrowRight') {
+            nextSlide();
+            resetAutoPlay();
+        }
+    });
+
+    // Pause autoplay on hover
+    const hero = document.getElementById('hero');
+    if (hero) {
+        hero.addEventListener('mouseenter', stopAutoPlay);
+        hero.addEventListener('mouseleave', startAutoPlay);
+        
+        // Touch support: pause on touch, resume after touch ends
+        let touchTimeout;
+        hero.addEventListener('touchstart', function() {
+            stopAutoPlay();
+            clearTimeout(touchTimeout);
+        }, { passive: true });
+        
+        hero.addEventListener('touchend', function() {
+            touchTimeout = setTimeout(startAutoPlay, 3000);
+        }, { passive: true });
+    }
+
+    // Start auto-play
+    startAutoPlay();
+
+    // Clean up on page unload
+    window.addEventListener('beforeunload', function() {
+        stopAutoPlay();
+    });
+
+    // Expose controls for debugging (optional)
+    window.heroCarousel = {
+        goTo: goToSlide,
+        next: nextSlide,
+        prev: prevSlide,
+        play: startAutoPlay,
+        pause: stopAutoPlay
+    };
+
+    console.log('🎠 Hero Carousel initialized with', slides.length, 'slides');
+})();
 
     // ============================================
     // 2. NAVBAR SCROLL EFFECT

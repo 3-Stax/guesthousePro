@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comfort Guesthouse | Premium Accommodation in Windhoek</title>
+    <!-- Add this meta tag for performance -->
+<meta http-equiv="Cache-Control" content="public, max-age=31536000, immutable">
+    <title>ROSEVILLE Guesthouse | Premium Accommodation in Windhoek</title>
     
     <!-- SEO & Social -->
-    <meta name="description" content="Experience opulent stays at Comfort Guesthouse, Windhoek North. Luxury suites, pool, and 5-star hospitality in Namibia's capital.">
-    <meta name="keywords" content="luxury guesthouse windhoek, comfort guesthouse, namibia accommodation, boutique hotel windhoek">
-    <meta property="og:title" content="Comfort Guesthouse | Luxury Windhoek Accommodation">
-    <meta property="og:description" content="Experience opulent stays at Comfort Guesthouse, Windhoek North. Luxury suites, pool, and 5-star hospitality in Namibia's capital.">
+    <meta name="description" content="Experience opulent stays at ROSEVILLE Guesthouse, Windhoek North. Luxury suites, pool, and 5-star hospitality in Namibia's capital.">
+    <meta name="keywords" content="luxury guesthouse windhoek, roseville guesthouse, namibia accommodation, boutique hotel windhoek">
+    <meta property="og:title" content="ROSEVILLE Guesthouse | Luxury Windhoek Accommodation">
+    <meta property="og:description" content="Experience opulent stays at ROSEVILLE Guesthouse, Windhoek North. Luxury suites, pool, and 5-star hospitality in Namibia's capital.">
     <meta property="og:image" content="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80">
-    <meta property="og:url" content="https://comfortguesthouse.com.na">
+    <meta property="og:url" content="https://rosevilleguesthouse.com.na">
     <meta name="twitter:card" content="summary_large_image">
     
     <!-- Favicon -->
@@ -24,52 +26,139 @@
     
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Preconnect for faster external resources -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
+<!-- Font Awesome - Load async -->
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</noscript>
     
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Resource hints for faster loading -->
+<link rel="preload" as="image" href="assets/hero/rg1.webp">
+<link rel="preload" as="image" href="assets/hero/rg2.webp">
 </head>
 <body>
 
-    <!-- Page Loader -->
-    <div class="page-loader" id="pageLoader">
-        <div class="loader-gold-bar"></div>
-        <span class="loader-text">COMFORT</span>
+    <!-- Page Loader with Progress -->
+<div class="page-loader" id="pageLoader">
+    <div class="loader-logo">ROSEVILLE</div>
+    <div class="loader-progress-container">
+        <div class="loader-progress-bar" id="loaderProgress"></div>
     </div>
+    <div class="loader-percentage" id="loaderPercentage">0%</div>
+    <div class="loader-gold-bar"></div>
+</div>
 
     <!-- ===== NAVBAR ===== -->
-    <header class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
-        <a href="#" class="logo" aria-label="Comfort Guesthouse Home">
-            <span class="logo-icon" aria-hidden="true">C</span>
-            <span class="logo-text">COMFORT <span>GUESTHOUSE</span></span>
-        </a>
-        <a href="https://wa.me/264814192433?text=Hi%20Comfort%20Guesthouse,%20I'd%20like%20to%20inquire%20about%20a%20booking." 
-           class="btn-primary" 
-           target="_blank" 
-           rel="noopener noreferrer">
-            Book Direct
-        </a>
-    </header>
+<header class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <a href="#" class="logo" aria-label="ROSEVILLE Guesthouse Home">
+        <span class="logo-icon" aria-hidden="true">C</span>
+        <span class="logo-text">ROSEVILLE <span>GUESTHOUSE</span></span>
+    </a>
+    
+    <!-- Navbar Weather -->
+    <div class="navbar-weather" id="navbarWeather">
+        <i class="fas fa-spinner fa-spin"></i>
+        <span class="navbar-weather-temp" id="navbarWeatherTemp">--°C</span>
+        <span class="navbar-weather-condition" id="navbarWeatherCondition">Loading...</span>
+    </div>
+    
+    <a href="https://wa.me/264811234567?text=Hi%20ROSEVILLE%20Guesthouse,%20I'd%20like%20to%20inquire%20about%20a%20booking." 
+       class="btn-primary" 
+       target="_blank" 
+       rel="noopener noreferrer">
+        Book Direct
+    </a>
+</header>
 
+    
     <!-- ===== HERO ===== -->
-    <section class="hero" id="hero" aria-label="Hero banner">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <span class="sub-heading">Windhoek North • Namibia</span>
-            <h1>Timeless Elegance<br>in the Heart of the Capital</h1>
-            <p>Where modern luxury meets Namibian warmth — experience impeccable service, serene surrounds, and suites crafted for the discerning traveler.</p>
-            <div class="hero-buttons">
-                <a href="#rooms" class="btn-primary">Explore Suites →</a>
-                <a href="#booking" class="btn-secondary">Inquire Now</a>
-            </div>
+<section class="hero" id="hero" aria-label="Hero banner">
+    <div class="hero-slider">
+        <!-- Slide 1 -->
+        <div class="hero-slide active" data-index="0">
+            <img src="assets/hero/rg1.jpg" alt="ROSEVILLE Guesthouse luxury suite"  loading="eager"
+         width="1920" 
+         height="1080"
+         decoding="async">
         </div>
-    </section>
+        <!-- Slide 2 -->
+        <div class="hero-slide" data-index="1">
+            <img src="assets/hero/rg2.jpg" alt="ROSEVILLE Guesthouse pool area"  loading="eager"
+         width="1920" 
+         height="1080"
+         decoding="async">
+        </div>
+        <!-- Slide 3 -->
+        <div class="hero-slide" data-index="2">
+            <img src="assets/hero/rg3.jpg" alt="ROSEVILLE Guesthouse garden view"  loading="eager"
+         width="1920" 
+         height="1080"
+         decoding="async">
+        </div>
+        <!-- Slide 4 -->
+        <div class="hero-slide" data-index="3">
+            <img src="assets/hero/rg4.jpg" alt="ROSEVILLE Guesthouse executive room"  loading="eager"
+         width="1920" 
+         height="1080"
+         decoding="async">
+        </div>
+        <!-- Slide 5 -->
+        <div class="hero-slide" data-index="4">
+            <img src="assets/hero/rg5.jpg" alt="ROSEVILLE Guesthouse exterior"  loading="eager"
+         width="1920" 
+         height="1080"
+         decoding="async">
+        </div>
+    </div>
+
+   
+    
+    <!-- Carousel Controls -->
+    <button class="hero-arrow hero-arrow-prev" aria-label="Previous slide">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="hero-arrow hero-arrow-next" aria-label="Next slide">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+
+    <!-- Dots Navigation -->
+    <div class="hero-dots" role="tablist" aria-label="Slide navigation">
+        <button class="hero-dot active" data-index="0" role="tab" aria-label="Slide 1"></button>
+        <button class="hero-dot" data-index="1" role="tab" aria-label="Slide 2"></button>
+        <button class="hero-dot" data-index="2" role="tab" aria-label="Slide 3"></button>
+        <button class="hero-dot" data-index="3" role="tab" aria-label="Slide 4"></button>
+        <button class="hero-dot" data-index="4" role="tab" aria-label="Slide 5"></button>
+    </div>
+
+    <!-- Content (stays on top of slider) -->
+    <div class="hero-content">
+        <span class="sub-heading">Windhoek North • Namibia</span>
+        <h1>Timeless Elegance<br>in the Heart of the Capital</h1>
+        <p>Where modern luxury meets Namibian warmth — experience impeccable service, serene surrounds, and suites crafted for the discerning traveler.</p>
+        <div class="hero-buttons">
+            <a href="#rooms" class="btn-primary">Explore Suites →</a>
+            <a href="#booking" class="btn-secondary">Inquire Now</a>
+        </div>
+    </div>
+</section>
 
     <!-- ===== AMENITIES ===== -->
     <section class="amenities" aria-label="Guest amenities">
         <div class="amenities-grid">
             <div class="amenity-item">
                 <span class="icon" aria-hidden="true">✦</span>
-                <h4>Starlink Wi-Fi</h4>
+                <h4>Wi-Fi</h4>
                 <p>500 Mbps · Dedicated</p>
             </div>
             <div class="amenity-item">
@@ -83,7 +172,7 @@
                 <p>Individual room AC</p>
             </div>
             <div class="amenity-item">
-                <span class="icon" aria-hidden="true">⚜️</span>
+                <span class="icon" aria-hidden="true">◉</span>
                 <h4>Secure Parking</h4>
                 <p>24/7 CCTV &amp; guard</p>
             </div>
@@ -102,15 +191,18 @@
             <!-- Room 1 -->
             <article class="room-card" tabindex="0" aria-label="Presidential Suite">
                 <div class="room-img">
-                    <img src="assets/room1.png" 
+                    <img src="assets/room/room2/room2.jpg" 
                          alt="Presidential Suite with king-size bed and garden view" 
-                         loading="lazy">
+                         loading="lazy"
+     width="600" 
+     height="400"
+     decoding="async">
                 </div>
                 <div class="room-info">
                     <h3>The Presidential Suite</h3>
                     <p>King-size bed, private patio with garden view, luxury ensuite bathroom, and dedicated workspace.</p>
                     <div class="price">N$ 1,450 <span>/ night</span></div>
-                    <a href="https://wa.me/264814192433?text=Hi,%20I%20am%20interested%20in%20booking%20the%20Presidential%20Suite." 
+                    <a href="https://wa.me/264811234567?text=Hi,%20I%20am%20interested%20in%20booking%20the%20Presidential%20Suite." 
                        class="btn-card" 
                        target="_blank" 
                        rel="noopener noreferrer">
@@ -122,15 +214,18 @@
             <!-- Room 2 -->
             <article class="room-card" tabindex="0" aria-label="Executive Double Room">
                 <div class="room-img">
-                    <img src="assets/room2.png" 
+                    <img src="assets/room/room1/room1.jpg" 
                          alt="Executive Double Room with queen-size bed and modern design" 
-                         loading="lazy">
+                         loading="lazy"
+     width="600" 
+     height="400"
+     decoding="async">
                 </div>
                 <div class="room-info">
                     <h3>Executive Double Room</h3>
                     <p>Queen-size bed, sleek modern design, satellite TV, coffee bar, and air-conditioning.</p>
                     <div class="price">N$ 950 <span>/ night</span></div>
-                    <a href="https://wa.me/264814192433?text=Hi,%20I%20am%20interested%20in%20booking%20the%20Executive%20Double%20Room." 
+                    <a href="https://wa.me/264811234567?text=Hi,%20I%20am%20interested%20in%20booking%20the%20Executive%20Double%20Room." 
                        class="btn-card" 
                        target="_blank" 
                        rel="noopener noreferrer">
@@ -142,15 +237,18 @@
             <!-- Room 3 - FIXED IMAGE -->
             <article class="room-card" tabindex="0" aria-label="Garden View Room">
                 <div class="room-img">
-                    <img src="assets/room3.png" 
+                    <img src="assets/room/room3/room3.jpg" 
                          alt="Garden View Room with queen bed and private courtyard" 
-                         loading="lazy">
+                         loading="lazy"
+     width="600" 
+     height="400"
+     decoding="async">
                 </div>
                 <div class="room-info">
                     <h3>Garden View Room</h3>
                     <p>Queen-size bed, private courtyard access, premium bedding, and Nespresso machine.</p>
                     <div class="price">N$ 750 <span>/ night</span></div>
-                    <a href="https://wa.me/264814192433?text=Hi,%20I%20am%20interested%20in%20booking%20the%20Garden%20View%20Room." 
+                    <a href="https://wa.me/264811234567?text=Hi,%20I%20am%20interested%20in%20booking%20the%20Garden%20View%20Room." 
                        class="btn-card" 
                        target="_blank" 
                        rel="noopener noreferrer">
@@ -177,12 +275,12 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="fullName">Full Name <span class="required">*</span></label>
-                        <input type="text" id="fullName" name="fullName" placeholder="John Doe" required />
+                        <input type="text" id="fullName" name="fullName" placeholder="Emma Theofilus" required />
                         <span class="error-message">Please enter your full name</span>
                     </div>
                     <div class="form-group">
                         <label for="email">Email Address <span class="required">*</span></label>
-                        <input type="email" id="email" name="email" placeholder="john@example.com" required />
+                        <input type="email" id="email" name="email" placeholder="emma@example.com" required />
                         <span class="error-message">Please enter a valid email address</span>
                     </div>
                 </div>
@@ -190,7 +288,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="phone">Phone Number <span class="required">*</span></label>
-                        <input type="tel" id="phone" name="phone" placeholder="+264 81 419 2433" required />
+                        <input type="tel" id="phone" name="phone" placeholder="+264 81 123 4567" required />
                         <span class="error-message">Please enter your phone number</span>
                     </div>
                     <div class="form-group">
@@ -270,14 +368,16 @@
             <div class="location-text">
                 <span class="sub-heading">Prime Location</span>
                 <h2>Find Us in Windhoek</h2>
-                <p>Located in the quiet, secure streets of Windhoek North, just 5 minutes from the central business district and 40 minutes from Hosea Kutako International Airport.</p>
+                <p>Located in the quiet, secure streets of Windhoek North, 
+                    just 5 minutes from the central business district and 40 minutes from 
+                    Hosea Kutako International Airport.</p>
                 <ul class="contact-list">
-                    <li>56 Sauer Street, Windhoek North, Windhoek</li>
+                    <li>195 Ooievaar Street, Windhoek North, Windhoek</li>
                     <li>
-                        <a href="tel:+264814192433">+264 (0) 81 419 2433</a>
+                        <a href="tel:+264811234567">+264 (0) 81 123 4567</a>
                     </li>
                     <li>
-                        <a href="mailto:res@comfortguesthouse.com.na">res@comfortguesthouse.com.na</a>
+                        <a href="mailto:res@rosevilleguesthouse.com.na">res@rosevilleguesthouse.com.na</a>
                     </li>
                 </ul>
             </div>
@@ -285,8 +385,8 @@
             <!-- Right: Google Maps -->
             <div class="location-map">
                 <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d641.0110604736506!2d17.072230796658225!3d-22.545619563821727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1s56%20Sauer%20Street%2C%20Windhoek%20North%2C%20Windhoek!5e0!3m2!1sen!2sna!4v1784806874751!5m2!1sen!2sna" 
-                    width="600"
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d845.1853037189023!2d17.071139996439317!3d-22.551866921692493!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1c0b1b4c919a5727%3A0xf371a333797213d1!2sRoseville%20Guesthouse!5e0!3m2!1sen!2sna!4v1784889971931!5m2!1sen!2sna" 
+                    width="600" 
                     height="450" 
                     style="border:0;" 
                     allowfullscreen="" 
@@ -305,34 +405,34 @@
     
     <!-- Social Icons -->
     <div class="social-icons">
-        <a href="https://facebook.com/comfortguesthouse" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+        <a href="https://facebook.com/rosevilleguesthouse" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
             <i class="fab fa-facebook-f"></i>
         </a>
-        <a href="https://instagram.com/comfortguesthouse" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <a href="https://instagram.com/rosevilleguesthouse" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
             <i class="fab fa-instagram"></i>
         </a>
-        <a href="https://twitter.com/comfortguesthouse" target="_blank" rel="noopener noreferrer" aria-label="Twitter/X">
+        <a href="https://twitter.com/rosevilleguesthouse" target="_blank" rel="noopener noreferrer" aria-label="Twitter/X">
             <i class="fab fa-x-twitter"></i>
         </a>
-        <a href="https://youtube.com/comfortguesthouse" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+        <a href="https://youtube.com/rosevilleguesthouse" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
             <i class="fab fa-youtube"></i>
         </a>
-        <a href="https://tiktok.com/@comfortguesthouse" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+        <a href="https://tiktok.com/@rosevilleguesthouse" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
             <i class="fab fa-tiktok"></i>
         </a>
-        <a href="https://wa.me/264814192433" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+        <a href="https://wa.me/264811234567" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
     
-    <p>&copy; 2026 Comfort Guesthouse Windhoek. All Rights Reserved.</p>
+    <p>&copy; 2026 Roseville Guesthouse Windhoek. All Rights Reserved.</p>
 </footer>
 
 <!-- JavaScript -->
 <script src="script.js"></script>
 
 <!-- ===== FLOATING WHATSAPP BUTTON ===== -->
-<a href="https://wa.me/264814192433?text=Hi%20Comfort%20Guesthouse!%20I%27d%20like%20to%20make%20a%20booking%20inquiry." 
+<a href="https://wa.me/264811234567?text=Hi%20Roseville%20Guesthouse!%20I%27d%20like%20to%20make%20a%20booking%20inquiry." 
    class="whatsapp-float" 
    target="_blank" 
    rel="noopener noreferrer"
@@ -343,6 +443,18 @@
     </div>
     <span class="tooltip">Chat with us ✨</span>
 </a>
-
+<!-- Performance Monitoring -->
+<!-- Performance Monitoring -->
+<script>
+(function measurePerformance() {
+    window.addEventListener('load', function() {
+        const perfData = performance.getEntriesByType('navigation')[0];
+        if (perfData) {
+            const loadTime = Math.round(perfData.loadEventEnd - perfData.fetchStart);
+            console.log(`🚀 Page loaded in ${loadTime}ms`);
+        }
+    });
+})();
+</script>
 </body>
 </html>
