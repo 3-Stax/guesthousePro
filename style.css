@@ -410,11 +410,18 @@ h3 {
 }
 
 .hero p {
-    color: var(--text-muted);
+    color: #ffffff; /* Sets the core text to clean white */
     font-size: clamp(1rem, 1.2vw, 1.15rem);
     margin-bottom: 2.5rem;
     max-width: 540px;
-    font-weight: 300;
+    font-weight: 500; /* Medium weight ensures the halo outline stands out clearly */
+    
+    /* Layered text shadows to create a vibrant gold halo glow */
+    text-shadow: 
+        0 0 5px var(--accent-gold),
+        0 0 10px var(--accent-gold),
+        0 0 20px var(--accent-gold),
+        0 0 30px rgba(0, 0, 0, 0.8); /* Optional dark outer edge for contrast on light backgrounds */
 }
 
 .hero-buttons {
